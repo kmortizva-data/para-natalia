@@ -1,5 +1,5 @@
 # Original photos never leave this machine (EXIF/GPS, full resolution)
-fotos_originales/
+fotos_originales/*
 !fotos_originales/LEEME.txt
 __pycache__/
 *.pyc

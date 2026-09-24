@@ -1,0 +1,4 @@
+Suelta aqui las fotos (jpg/png/heic no: solo jpg o png). Luego corre:
+    python tools/prepare_photos.py
+Eso las achica a 1600 px, les quita los metadatos (ubicacion GPS incluida) y las deja en site/photos/.
+Los originales NUNCA se suben a GitHub.
