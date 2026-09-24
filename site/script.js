@@ -4,7 +4,7 @@
 
   // SHA-256 of the normalized pass word (lowercase, trimmed, accents removed).
   // Regenerate with:  python -c "import hashlib;print(hashlib.sha256(b'palabra').hexdigest())"
-  const PASS_HASH = "4ea7ea4917057a1fcbb3bffdb673602d9b961ff14b239cc7a8d96933b8a18b51";
+  const PASS_HASH = "9b871512327c09ce91dd649b3f96a63b7408ef267c8cc5710114e629730cb61f";
   const STORAGE_KEY = "natalia:unlocked";
   const THEME_KEY = "natalia:theme";
 

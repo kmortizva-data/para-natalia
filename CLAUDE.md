@@ -44,10 +44,10 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 
 ## Pendientes de kei
 
-- [ ] Elegir la palabra clave y decírmela (se guarda como hash en `script.js`).
+- [x] Palabra clave elegida (2026-09-24).
 - [ ] Soltar fotos en `fotos_originales/` y correr `prepare_photos.py`.
 - [ ] Revisar `site/message.md`.
-- [ ] Crear repo público `para-natalia` en github.com (vacío, sin README) → yo hago el push.
+- [x] Repo público creado y primer push hecho (2026-09-24).
 - [ ] Settings → Pages → Deploy from a branch → `main` / `site` (o raíz si no aparece).
 - [ ] Confirmar la lista de juegos o cambiar alguno en `games.json`.
 
@@ -58,6 +58,6 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
   (clave mala rechazada, clave buena con mayúsculas/espacios aceptada, 10 botones con la URL
   correcta, galería vacía y con 5 fotos de prueba + visor, tema claro/oscuro, móvil 375 px sin
   scroll horizontal). Las fotos de prueba se borraron; `manifest.json` quedó en `[]`.
-  Clave PROVISIONAL: `natalia` (cambiar en cuanto kei elija la suya). Servidor local registrado
+  Clave elegida por kei el 2026-09-24 (solo el hash vive en el repo). Servidor local registrado
   como `natalia` en `~/.claude/launch.json`. Proyecto registrado en `_INDICE/projects.json`.
   Pendiente: repo en GitHub + Pages (solo kei puede crearlo) y primer push.
