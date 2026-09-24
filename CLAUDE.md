@@ -48,7 +48,7 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 - [ ] Soltar fotos en `fotos_originales/` y correr `prepare_photos.py`.
 - [ ] Revisar `site/message.md`.
 - [x] Repo público creado y primer push hecho (2026-09-24).
-- [ ] Settings → Pages → Deploy from a branch → `main` / `site` (o raíz si no aparece).
+- [x] Pages se publica con `.github/workflows/pages.yml` (Actions, carpeta `site/`); se activa solo.
 - [ ] Confirmar la lista de juegos o cambiar alguno en `games.json`.
 
 ## Bitácora
@@ -60,4 +60,4 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
   scroll horizontal). Las fotos de prueba se borraron; `manifest.json` quedó en `[]`.
   Clave elegida por kei el 2026-09-24 (solo el hash vive en el repo). Servidor local registrado
   como `natalia` en `~/.claude/launch.json`. Proyecto registrado en `_INDICE/projects.json`.
-  Pendiente: repo en GitHub + Pages (solo kei puede crearlo) y primer push.
+  Repo creado por kei y primer push el mismo día; Pages vía GitHub Actions desde `site/`.
