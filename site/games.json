@@ -1,0 +1,152 @@
+[
+  {
+    "n": 1,
+    "id": "enchambered",
+    "name": "Alone Together",
+    "site": "Enchambered",
+    "url": "https://www.enchambered.com/puzzles/alone-together/",
+    "category": "Misterio",
+    "blurb": "Un escape room virtual hecho para dos: cada una ve pistas distintas y solo salen si se cuentan todo.",
+    "howto": [
+      "Abran el link cada una en su propio celular o computador.",
+      "Una elige Player 1 y la otra Player 2 (los links son distintos).",
+      "Llámense por videollamada: lo que ve una, la otra no lo ve.",
+      "Ganan cuando las dos pantallas dicen You escaped."
+    ]
+  },
+  {
+    "n": 2,
+    "id": "codenames",
+    "name": "Codenames Duet",
+    "site": "codenames.game",
+    "url": "https://codenames.game/",
+    "category": "Palabras",
+    "blurb": "El juego de espías de palabras, en su modo cooperativo para dos. Está en español.",
+    "howto": [
+      "Una entra a codenames.game y pulsa Create Room.",
+      "En la configuración elige el modo Duet y el idioma español.",
+      "Copia el link de la sala y se lo manda a la otra.",
+      "Las dos son jefas de espías: se dan pistas de una palabra por turno."
+    ]
+  },
+  {
+    "n": 3,
+    "id": "skribbl",
+    "name": "skribbl.io",
+    "site": "skribbl.io",
+    "url": "https://skribbl.io/",
+    "category": "Dibujo",
+    "blurb": "Pictionary online: una dibuja fatal, la otra adivina peor. Risas aseguradas.",
+    "howto": [
+      "Una pulsa Create Private Room.",
+      "Pone el idioma en español y la cantidad de rondas.",
+      "Copia el link de invitación y lo manda.",
+      "Cuando estén las dos, Start Game."
+    ]
+  },
+  {
+    "n": 4,
+    "id": "jklm",
+    "name": "BombParty",
+    "site": "JKLM.fun",
+    "url": "https://jklm.fun/",
+    "category": "Palabras",
+    "blurb": "Una bomba con cuenta regresiva: escribe una palabra que contenga las sílabas antes de que explote.",
+    "howto": [
+      "Una entra a jklm.fun, escribe su nombre y pulsa Start a game.",
+      "Elige BombParty (o PopSauce para trivia rápida).",
+      "Manda el código de la sala o el link.",
+      "En las reglas cambien el diccionario a español."
+    ]
+  },
+  {
+    "n": 5,
+    "id": "bga",
+    "name": "Board Game Arena",
+    "site": "boardgamearena.com",
+    "url": "https://boardgamearena.com/",
+    "category": "Mesa",
+    "blurb": "Cientos de juegos de mesa reales en el navegador: 7 Wonders Duel, Splendor Duel, Patchwork, Azul Duel.",
+    "howto": [
+      "Las dos crean una cuenta gratis (un minuto).",
+      "Agréguense como amigas por nombre de usuario.",
+      "Una crea una mesa del juego que quieran y la pone en modo amigos.",
+      "La otra entra desde la invitación."
+    ]
+  },
+  {
+    "n": 6,
+    "id": "lichess",
+    "name": "Lichess",
+    "site": "lichess.org",
+    "url": "https://lichess.org/",
+    "category": "Mesa",
+    "blurb": "Ajedrez gratis, sin anuncios y sin cuenta. Una partida a la semana y llevamos la cuenta.",
+    "howto": [
+      "Una pulsa Jugar con un amigo.",
+      "Elige el tiempo por jugadora (10 minutos está bien).",
+      "Copia el link y lo manda.",
+      "La otra lo abre y empieza la partida."
+    ]
+  },
+  {
+    "n": 7,
+    "id": "jigsaw",
+    "name": "Jigsaw Puzzles",
+    "site": "jigsawpuzzles.io",
+    "url": "https://jigsawpuzzles.io/",
+    "category": "Tranqui",
+    "blurb": "Un rompecabezas que arman juntas en tiempo real mientras hablan de la vida.",
+    "howto": [
+      "Una elige una imagen del catálogo y el número de piezas.",
+      "Pulsa Invite y copia el link.",
+      "La otra entra y ve las mismas piezas moverse en vivo.",
+      "Ideal con una llamada de fondo."
+    ]
+  },
+  {
+    "n": 8,
+    "id": "geotastic",
+    "name": "Geotastic",
+    "site": "geotastic.net",
+    "url": "https://geotastic.net/",
+    "category": "Mapa",
+    "blurb": "Te sueltan en una calle del mundo y tienes que adivinar dónde estás. Gratis, tipo GeoGuessr.",
+    "howto": [
+      "Una crea un lobby y elige el modo (Classic funciona bien a dos).",
+      "Copia el código o el link del lobby.",
+      "La otra entra y arrancan la ronda.",
+      "Gana quien marque más cerca en el mapa."
+    ]
+  },
+  {
+    "n": 9,
+    "id": "cards",
+    "name": "PlayingCards.io",
+    "site": "playingcards.io",
+    "url": "https://playingcards.io/",
+    "category": "Mesa",
+    "blurb": "Una mesa de cartas virtual: Crazy Eights (el Uno de toda la vida), Go Fish, damas y más.",
+    "howto": [
+      "Una pulsa Start a Room y elige el juego.",
+      "Comparte el código de la sala.",
+      "La otra entra con el código.",
+      "Las reglas las ponen ustedes: la mesa solo mueve las cartas."
+    ]
+  },
+  {
+    "n": 10,
+    "id": "teleparty",
+    "name": "Teleparty",
+    "site": "teleparty.com",
+    "url": "https://www.teleparty.com/",
+    "category": "Cine",
+    "blurb": "Ver Netflix, Disney+ o Prime al mismo tiempo, con chat al lado. La noche de serie sigue en pie.",
+    "howto": [
+      "Las dos instalan la extensión de Teleparty en Chrome o Edge.",
+      "Una abre el capítulo y pulsa el icono de Teleparty.",
+      "Copia el link de la fiesta y lo manda.",
+      "La otra lo abre: play y pausa quedan sincronizados."
+    ]
+  }
+]
