@@ -6,7 +6,7 @@
     "site": "Enchambered",
     "url": "https://www.enchambered.com/puzzles/alone-together/",
     "category": "Misterio",
-    "blurb": "Un escape room virtual hecho para dos: cada una ve pistas distintas y solo salen si se cuentan todo.",
+    "blurb": "Un escape room virtual hecho para dos: cada una ve pistas distintas y solo salen si se cuentan todo. Corto, gratis, en el navegador.",
     "howto": [
       "Abran el link cada una en su propio celular o computador.",
       "Una elige Player 1 y la otra Player 2 (los links son distintos).",
@@ -16,6 +16,36 @@
   },
   {
     "n": 2,
+    "id": "escapelab",
+    "name": "Escape Lab",
+    "site": "escapelab.run",
+    "url": "https://www.escapelab.run/",
+    "category": "Misterio",
+    "blurb": "Escapar del laboratorio del Dr. Holmes. Para dos, sin compartir pantalla, una o dos horas de hablar sin parar. Gratis en el navegador.",
+    "howto": [
+      "Cada una abre escapelab.run en su propio dispositivo (o instala la app, también gratis).",
+      "Elijan el modo de dos jugadoras y entren a la misma partida.",
+      "No se muestren la pantalla: la gracia es describirse lo que ven.",
+      "Reserven una tarde: el tiempo promedio es de una a dos horas."
+    ]
+  },
+  {
+    "n": 3,
+    "id": "unsolvedcase",
+    "name": "Unsolved Case",
+    "site": "Eleven Puzzles",
+    "url": "https://elevenpuzzles.com/unsolved-case/",
+    "category": "Misterio",
+    "blurb": "Un asesino críptico, dos detectives y cada una ve solo la mitad del puzle. Gratis, sin anuncios, en el celular o el computador.",
+    "howto": [
+      "Cada una instala la app gratis (Android, iPhone o Steam en el computador).",
+      "Una crea la partida y le manda el código a la otra.",
+      "Una es Old Dog y la otra es Ally: se cuentan lo que ven por llamada.",
+      "Dura entre 30 y 60 minutos; si les gusta, la saga sigue con Cryptic Killer (esa sí es de pago)."
+    ]
+  },
+  {
+    "n": 4,
     "id": "codenames",
     "name": "Codenames Duet",
     "site": "codenames.game",
@@ -30,7 +60,7 @@
     ]
   },
   {
-    "n": 3,
+    "n": 5,
     "id": "skribbl",
     "name": "skribbl.io",
     "site": "skribbl.io",
@@ -45,7 +75,7 @@
     ]
   },
   {
-    "n": 4,
+    "n": 6,
     "id": "jklm",
     "name": "BombParty",
     "site": "JKLM.fun",
@@ -60,7 +90,7 @@
     ]
   },
   {
-    "n": 5,
+    "n": 7,
     "id": "bga",
     "name": "Board Game Arena",
     "site": "boardgamearena.com",
@@ -75,22 +105,7 @@
     ]
   },
   {
-    "n": 6,
-    "id": "lichess",
-    "name": "Lichess",
-    "site": "lichess.org",
-    "url": "https://lichess.org/",
-    "category": "Mesa",
-    "blurb": "Ajedrez gratis, sin anuncios y sin cuenta. Una partida a la semana y llevamos la cuenta.",
-    "howto": [
-      "Una pulsa Jugar con un amigo.",
-      "Elige el tiempo por jugadora (10 minutos está bien).",
-      "Copia el link y lo manda.",
-      "La otra lo abre y empieza la partida."
-    ]
-  },
-  {
-    "n": 7,
+    "n": 8,
     "id": "jigsaw",
     "name": "Jigsaw Puzzles",
     "site": "jigsawpuzzles.io",
@@ -102,21 +117,6 @@
       "Pulsa Invite y copia el link.",
       "La otra entra y ve las mismas piezas moverse en vivo.",
       "Ideal con una llamada de fondo."
-    ]
-  },
-  {
-    "n": 8,
-    "id": "geotastic",
-    "name": "Geotastic",
-    "site": "geotastic.net",
-    "url": "https://geotastic.net/",
-    "category": "Mapa",
-    "blurb": "Te sueltan en una calle del mundo y tienes que adivinar dónde estás. Gratis, tipo GeoGuessr.",
-    "howto": [
-      "Una crea un lobby y elige el modo (Classic funciona bien a dos).",
-      "Copia el código o el link del lobby.",
-      "La otra entra y arrancan la ronda.",
-      "Gana quien marque más cerca en el mapa."
     ]
   },
   {

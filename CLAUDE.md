@@ -19,10 +19,14 @@
 
 ## Los 10 juegos (verificados 2026-09-24: gratis, navegador, sirven a dos)
 
-1. Enchambered · Alone Together (escape room para 2) · 2. Codenames Duet · 3. skribbl.io ·
-4. JKLM.fun BombParty · 5. Board Game Arena · 6. Lichess · 7. jigsawpuzzles.io · 8. Geotastic ·
-9. PlayingCards.io · 10. Teleparty.
-Descartados: Among Us (mínimo 4), Gartic Phone (rinde con 4+), Jackbox (pago), Escape Team (DNS caído).
+Orden pedido por kei el 2026-09-24: los escape rooms van primero.
+1. Enchambered · Alone Together (navegador, gratis) · 2. Escape Lab (navegador o app, gratis,
+1-2 h) · 3. Unsolved Case de Eleven Puzzles (app gratis sin anuncios, 30-60 min; NO es navegador,
+avisado) · 4. Codenames Duet · 5. skribbl.io · 6. JKLM.fun BombParty · 7. Board Game Arena ·
+8. jigsawpuzzles.io · 9. PlayingCards.io · 10. Teleparty.
+Salieron el 2026-09-24 a pedido de kei: Geotastic y Lichess (quería más escape rooms).
+Descartados: Among Us (mínimo 4), Gartic Phone (rinde con 4+), Jackbox (pago), Escape Team (DNS
+caído), Together Apart de Enchambered (mínimo 5 USD), Parallel Lab (de pago).
 
 ## Estructura
 
