@@ -60,4 +60,4 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
   scroll horizontal). Las fotos de prueba se borraron; `manifest.json` quedó en `[]`.
   Clave elegida por kei el 2026-09-24 (solo el hash vive en el repo). Servidor local registrado
   como `natalia` en `~/.claude/launch.json`. Proyecto registrado en `_INDICE/projects.json`.
-  Repo creado por kei y primer push el mismo día; Pages vía GitHub Actions desde `site/`.
+  Repo creado por kei y primer push el mismo día. Pages: el primer intento de activarlo desde el workflow falló (GitHub no deja que el token del repo lo encienda); se activó a mano en Settings → Pages → Source: GitHub Actions y se relanzó con un push.
