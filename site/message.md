@@ -11,7 +11,7 @@ El perderme en tus historias y que podamos hablar horas y horas, o simplemente e
 
 Quiero admitir que me siento muy afortunado de que hayamos cruzado caminos y vivido tan intensamente este mes.
 
-Tal vez la vida tenía planes de darnos una recarga en el Polo Norte, o de dejar una semilla de bellos instantes para más adelante.
+Tal vez la vida tenía planes de darnos una recarga en el Polo Norte, recordandonos el calor del hogar estando tan lejos, o de dejar una semilla de bellos instantes para más adelante.
 
 No lo sé.
 

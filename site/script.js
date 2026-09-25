@@ -6,7 +6,6 @@
   // Regenerate with:  python -c "import hashlib;print(hashlib.sha256(b'palabra').hexdigest())"
   const PASS_HASH = "9b871512327c09ce91dd649b3f96a63b7408ef267c8cc5710114e629730cb61f";
   const STORAGE_KEY = "natalia:unlocked";
-  const THEME_KEY = "natalia:theme";
 
   const $ = (sel, root = document) => root.querySelector(sel);
 
@@ -22,20 +21,6 @@
   const safeGet = (k) => { try { return localStorage.getItem(k); } catch { return null; } };
   const safeSet = (k, v) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } };
 
-  /* ---------- theme ---------- */
-  function initTheme() {
-    const saved = safeGet(THEME_KEY);
-    if (saved === "dark" || saved === "light") document.documentElement.dataset.theme = saved;
-    $("#theme-toggle").addEventListener("click", () => {
-      const root = document.documentElement;
-      const systemDark = matchMedia("(prefers-color-scheme: dark)").matches;
-      const current = root.dataset.theme || (systemDark ? "dark" : "light");
-      const next = current === "dark" ? "light" : "dark";
-      root.dataset.theme = next;
-      safeSet(THEME_KEY, next);
-    });
-  }
-
   /* ---------- gate ---------- */
   function unlock() {
     $("#gate").remove();
@@ -50,28 +35,121 @@
 
   function initGate() {
     document.body.classList.add("locked");
-    if (safeGet(STORAGE_KEY) === PASS_HASH) { unlock(); return; }
+    if (safeGet(STORAGE_KEY) === PASS_HASH) { unlock(); music.onReturnVisit(); return; }
     const form = $("#gate-form");
     const input = $("#gate-word");
     const error = $("#gate-error");
     setTimeout(() => input.focus(), 300);
-    form.addEventListener("submit", async (ev) => {
-      ev.preventDefault();
-      if (!crypto.subtle) { error.textContent = "Abre la página desde el link https, no como archivo."; return; }
-      const hash = await sha256(normalize(input.value));
-      if (hash === PASS_HASH) {
-        safeSet(STORAGE_KEY, hash);
+
+    // Hash while typing so the submit click can start the music synchronously
+    // (browsers only allow audio inside the user's own gesture).
+    let pending = null;
+    input.addEventListener("input", () => {
+      const v = normalize(input.value);
+      if (!crypto.subtle) return;
+      sha256(v).then((h) => { pending = { v, h }; });
+    });
+
+    const decide = (ok) => {
+      if (ok) {
+        music.start();                       // still inside the click gesture
+        safeSet(STORAGE_KEY, PASS_HASH);
         unlock();
       } else {
-        error.textContent = "Esa no es. Piensa en algo nuestro.";
+        error.textContent = "Ese no es. Piensa en un número nuestro.";
         const gate = $("#gate");
         gate.classList.remove("gate--shake");
         void gate.offsetWidth; // restart animation
         gate.classList.add("gate--shake");
         input.select();
       }
+    };
+
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      if (!crypto.subtle) { error.textContent = "Abre la página desde el link https, no como archivo."; return; }
+      const v = normalize(input.value);
+      if (pending && pending.v === v) { decide(pending.h === PASS_HASH); return; }
+      decide((await sha256(v)) === PASS_HASH);   // typed and submitted in the same instant
     });
   }
+
+  /* ---------- music: official YouTube visualizer in a small card ---------- */
+  const music = (() => {
+    const VIDEO_ID = "v9T_MGfzq7I";          // BAD BUNNY - DtMF (Visualizer), canal oficial
+    const VOL_KEY = "natalia:volume";
+    const MUTE_KEY = "natalia:muted";
+    let player = null, ready = false, wantPlay = false, unlocked = false, closed = false;
+    let vol = Math.min(100, Math.max(0, parseInt(safeGet(VOL_KEY), 10) || 60));
+    let muted = safeGet(MUTE_KEY) === "1";
+    const card = $("#player");
+
+    function render() {
+      card.classList.toggle("is-muted", muted);
+      const bars = card.querySelectorAll("#vol-level i");
+      const lit = muted ? 0 : Math.round(vol / 10);
+      bars.forEach((b, i) => b.classList.toggle("on", i < lit));
+      $("#vol-mute").setAttribute("aria-label", muted ? "Activar sonido" : "Silenciar");
+    }
+    function apply() {
+      if (!ready) return;
+      player.setVolume(vol);
+      if (muted) player.mute(); else player.unMute();
+      safeSet(VOL_KEY, String(vol)); safeSet(MUTE_KEY, muted ? "1" : "0");
+      render();
+    }
+    function show() { if (!closed) card.classList.add("is-on"); }
+    function isPlaying() { return ready && [1, 3].includes(player.getPlayerState()); }
+
+    // If the browser refused to start audio, ask for one tap anywhere.
+    function armTapFallback() {
+      const hint = $("#player-hint");
+      setTimeout(() => {
+        if (isPlaying() || closed) return;
+        hint.hidden = false;
+        const once = () => { if (ready) player.playVideo(); hint.hidden = true; document.removeEventListener("pointerdown", once); };
+        document.addEventListener("pointerdown", once);
+      }, 1500);
+    }
+
+    window.onYouTubeIframeAPIReady = () => {
+      player = new YT.Player("yt", {
+        videoId: VIDEO_ID, width: 200, height: 200,
+        playerVars: { playsinline: 1, controls: 1, rel: 0, modestbranding: 1, origin: location.origin },
+        events: {
+          onReady: () => {
+            ready = true; apply();
+            if (wantPlay) { player.playVideo(); armTapFallback(); }
+          },
+          onStateChange: (e) => {
+            card.classList.toggle("is-paused", e.data !== 1 && e.data !== 3);
+            if (e.data === 1) $("#player-hint").hidden = true;
+            // keep our icon honest if she used YouTube's own mute
+            if (ready && player.isMuted() !== muted) { muted = player.isMuted(); safeSet(MUTE_KEY, muted ? "1" : "0"); render(); }
+          },
+          onError: () => { card.classList.add("is-paused"); },
+        },
+      });
+    };
+
+    $("#vol-down").addEventListener("click", () => { vol = Math.max(0, vol - 10); muted = vol === 0 ? true : false; apply(); });
+    $("#vol-up").addEventListener("click", () => { vol = Math.min(100, vol + 10); muted = false; apply(); });
+    $("#vol-mute").addEventListener("click", () => { muted = !muted; if (!muted && vol === 0) vol = 30; apply(); });
+    $("#player-fold").addEventListener("click", () => card.classList.toggle("is-folded"));
+    $("#player-close").addEventListener("click", () => { closed = true; if (ready) player.stopVideo(); card.classList.remove("is-on"); });
+    render();
+
+    return {
+      // called synchronously inside the "Entrar" click
+      start() {
+        unlocked = true; show();
+        if (ready) { player.playVideo(); armTapFallback(); } else { wantPlay = true; }
+      },
+      // password remembered: no gesture available; the browser may refuse and
+      // the tap fallback then asks for one touch
+      onReturnVisit() { this.start(); },
+    };
+  })();
 
   /* ---------- letter (message.md: blank line = new paragraph) ---------- */
   async function loadLetter() {
@@ -343,6 +421,5 @@
   }
 
   /* ---------- boot ---------- */
-  initTheme();
   initGate();
 })();

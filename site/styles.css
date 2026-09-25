@@ -1,38 +1,7 @@
 /* ---------- Tokens ---------- */
+/* Always dark, by decision (2026-09-25): no light theme, no toggle. */
 :root {
-  --bg: #F7F1E8;
-  --bg-2: #FFFDF9;
-  --ink: #2B241F;
-  --ink-2: #5C524A;
-  --muted: #8A7F74;
-  --line: #E4D9CB;
-  --accent: #C4573A;
-  --accent-ink: #FFFFFF;
-  --sage: #5E8A6A;
-  --gold: #D9A441;
-  --shadow: 0 10px 30px rgba(43, 36, 31, 0.08);
-  --radius: 22px;
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
-  --max: 1080px;
-  --gutter: 16px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #16130F;
-    --bg-2: #211C17;
-    --ink: #F3EDE4;
-    --ink-2: #CFC4B6;
-    --muted: #9C9084;
-    --line: #35302A;
-    --accent: #E0724F;
-    --accent-ink: #16130F;
-    --sage: #7FAE8C;
-    --gold: #E4B75C;
-    --shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
-  }
-}
-:root[data-theme="dark"] {
+  color-scheme: dark;
   --bg: #16130F;
   --bg-2: #211C17;
   --ink: #F3EDE4;
@@ -44,6 +13,11 @@
   --sage: #7FAE8C;
   --gold: #E4B75C;
   --shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+  --radius: 22px;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --max: 1080px;
+  --gutter: 16px;
 }
 
 /* ---------- Base ---------- */
@@ -134,19 +108,6 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .top__nav { display: none; gap: 20px; }
 .top__nav a { color: var(--ink-2); text-decoration: none; font-size: 15px; font-weight: 500; }
 .top__nav a:hover { color: var(--accent); }
-.top__theme {
-  width: 40px; height: 40px; border-radius: 50%;
-  border: 1px solid var(--line); background: var(--bg-2); color: var(--ink);
-  display: grid; place-items: center; cursor: pointer;
-}
-.top__theme .ico { width: 18px; height: 18px; }
-.ico--moon { display: none; }
-:root[data-theme="dark"] .ico--moon { display: block; }
-:root[data-theme="dark"] .ico--sun { display: none; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .ico--moon { display: block; }
-  :root:not([data-theme="light"]) .ico--sun { display: none; }
-}
 @media (min-width: 720px) { .top__nav { display: flex; } }
 
 /* ---------- Hero ---------- */
@@ -223,7 +184,6 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .bubble:nth-child(4) { --tint: #4F7FA3; }
 .bubble:nth-child(5) { --tint: #C25B7E; }
 .bubble:nth-child(6) { --tint: #7B5EA7; }
-:root[data-theme="dark"] .bubble { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) { .bubble { will-change: auto; } }
 
 /* ---------- Sections ---------- */
@@ -307,7 +267,6 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   font: 600 14px var(--font-body); padding: 11px 16px; border-radius: 999px;
   transition: filter .2s ease, transform .15s ease;
 }
-:root[data-theme="dark"] .game__play, :root:not([data-theme="light"]) .game__play { color: #fff; }
 .game__play:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .game__play svg { width: 16px; height: 16px; }
 .game details { font-size: 14px; }
@@ -320,17 +279,12 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 
 /* Category tints */
 .game[data-cat="Misterio"] { --tint: var(--accent); }
-.game[data-cat="Palabras"] { --tint: #B8862B; }
-.game[data-cat="Dibujo"] { --tint: #C25B7E; }
+.game[data-cat="Palabras"] { --tint: #E4B75C; }
+.game[data-cat="Dibujo"] { --tint: #E38AA8; }
 .game[data-cat="Mesa"] { --tint: var(--sage); }
-.game[data-cat="Tranqui"] { --tint: #4F7FA3; }
-.game[data-cat="Mapa"] { --tint: #3E8E86; }
-.game[data-cat="Cine"] { --tint: #7B5EA7; }
-:root[data-theme="dark"] .game[data-cat="Palabras"] { --tint: #E4B75C; }
-:root[data-theme="dark"] .game[data-cat="Dibujo"] { --tint: #E38AA8; }
-:root[data-theme="dark"] .game[data-cat="Tranqui"] { --tint: #7FB0D6; }
-:root[data-theme="dark"] .game[data-cat="Mapa"] { --tint: #6FC3B9; }
-:root[data-theme="dark"] .game[data-cat="Cine"] { --tint: #B39BDD; }
+.game[data-cat="Tranqui"] { --tint: #7FB0D6; }
+.game[data-cat="Mapa"] { --tint: #6FC3B9; }
+.game[data-cat="Cine"] { --tint: #B39BDD; }
 
 /* Footer */
 .foot { text-align: center; padding: 60px var(--gutter) 40px; color: var(--muted); font-size: 15px; border-top: 1px solid var(--line); margin-top: 40px; }
@@ -352,6 +306,75 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .lightbox__nav--prev { left: 12px; }
 .lightbox__nav--next { right: 12px; }
 .lightbox svg { width: 22px; height: 22px; }
+
+/* ---------- Music player card ---------- */
+.player {
+  position: fixed; right: 16px; bottom: 16px; z-index: 30;
+  width: 236px;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 10px 10px 12px;
+  opacity: 0; transform: translateY(12px); pointer-events: none;
+  transition: opacity .4s ease, transform .4s cubic-bezier(.2,.7,.2,1);
+}
+.player.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.player__head { display: flex; align-items: center; gap: 8px; margin: 0 0 8px 4px; }
+.player__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; animation: pulse 1.6s ease-in-out infinite; }
+.player.is-paused .player__dot { animation: none; opacity: .4; }
+.player__label { font: 600 12px/1.2 var(--font-body); letter-spacing: .04em; color: var(--ink-2); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player__icon-btn {
+  width: 26px; height: 26px; border-radius: 50%; flex: none;
+  border: 1px solid var(--line); background: transparent; color: var(--muted);
+  display: grid; place-items: center; cursor: pointer;
+}
+.player__icon-btn svg { width: 14px; height: 14px; }
+.player__icon-btn:hover { color: var(--ink); border-color: var(--ink-2); }
+.player__body { display: grid; gap: 10px; }
+.player__frame { width: 200px; height: 200px; border-radius: 12px; overflow: hidden; background: #000; margin: 0 auto; }
+.player__frame iframe { display: block; width: 200px; height: 200px; border: 0; }
+.player__side { display: grid; gap: 8px; justify-items: center; }
+.player__controls { display: flex; gap: 8px; }
+.player__btn {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+  display: grid; place-items: center; cursor: pointer;
+  transition: transform .15s ease, background .2s ease;
+}
+.player__btn:hover { transform: translateY(-1px); background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+.player__btn:active { transform: none; }
+.player__btn svg { width: 20px; height: 20px; }
+.player__btn--mute { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.player__btn--mute .ico-muted { display: none; }
+.player.is-muted .player__btn--mute .ico-muted { display: block; }
+.player.is-muted .player__btn--mute .ico-sound { display: none; }
+.player.is-muted .player__btn--mute { background: var(--bg); color: var(--muted); border-color: var(--line); }
+.player__level { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
+.player__level i { display: block; width: 6px; border-radius: 2px; background: var(--line); transition: background .2s ease; }
+.player__level i:nth-child(1) { height: 5px; } .player__level i:nth-child(2) { height: 6px; }
+.player__level i:nth-child(3) { height: 7px; } .player__level i:nth-child(4) { height: 8px; }
+.player__level i:nth-child(5) { height: 9px; } .player__level i:nth-child(6) { height: 10px; }
+.player__level i:nth-child(7) { height: 11px; } .player__level i:nth-child(8) { height: 13px; }
+.player__level i:nth-child(9) { height: 14px; } .player__level i:nth-child(10) { height: 16px; }
+.player__level i.on { background: var(--accent); }
+.player__hint { margin: 0; font-size: 12px; color: var(--accent); text-align: center; }
+.player.is-folded .player__side { display: none; }
+.player.is-folded .player__body { gap: 0; }
+/* the card scrolls out of the way of the footer */
+.foot { padding-bottom: 300px; }
+@media (min-width: 600px) {
+  .player { width: 236px; }
+}
+@media (max-width: 599px) {
+  .player { left: 16px; right: 16px; width: auto; }
+  .player__body { grid-template-columns: 200px 1fr; align-items: center; }
+  .player__frame { margin: 0; }
+  .player__side { justify-items: center; }
+  .player__controls { flex-direction: column; }
+  .player.is-folded .player__body { grid-template-columns: 200px; }
+}
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .5; } }
 
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }

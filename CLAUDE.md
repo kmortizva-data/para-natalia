@@ -16,6 +16,13 @@
 - Repo: `para-natalia` en la cuenta `kmortizva-data` → `https://kmortizva-data.github.io/para-natalia/`.
 - Código en inglés; textos visibles, README y este archivo en español.
 - Fuentes de la hoja PDF: Georgia + Segoe UI (del sistema; la red a 35 KB/s no da para bajar TTF).
+- **Música (2026-09-25): NO se publica el MP3** de `Downloads\Bad Bunny - DtMF.mp3` (repo público
+  = distribución con derechos; GitHub baja el repo entero por DMCA y se pierde el regalo). Suena
+  el visualizer oficial de YouTube, canal "Bad Bunny", ID `v9T_MGfzq7I` (constante `VIDEO_ID` en
+  `script.js`), en una tarjeta fija de 200×200 (mínimo que exige YouTube; no se puede esconder).
+  Arranca dentro del clic de Entrar: la clave se hashea mientras escribe para que el `playVideo`
+  quede dentro del gesto. Si el navegador lo bloquea, aparece "Toca la pantalla para que suene" y
+  el primer toque la arranca. Volumen y silencio se recuerdan en localStorage.
 
 ## Los 10 juegos (verificados 2026-09-24: gratis, navegador, sirven a dos)
 
@@ -57,8 +64,10 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 
 ## Inventario de UI (para auditar tras refactors)
 
-- Puerta: input "La palabra" + botón Entrar + mensaje de error con sacudida.
-- Barra: marca, nav (Mensaje/Fotos/Juegos, solo ≥720 px), botón de tema.
+- Puerta: campo "Dime un número de 3 dígitos que traiga buena suerte" (teclado numérico) + botón
+  Entrar + error "Ese no es. Piensa en un número nuestro." con sacudida.
+- Barra: marca, nav (Mensaje/Fotos/Juegos, solo ≥720 px). Sin botón de tema: la página es
+  siempre oscura por decisión de kei (2026-09-25).
 - Portada: eyebrow, "Te extraño,", **burbujas** (Natalia grande + gold nugget, la esmeralda que
   más brilla, mi parcera, china mk, ojitos lindos; física propia en `initBubbles`, arrastrables,
   estáticas si `prefers-reduced-motion`), subtítulo, flecha "Baja".
@@ -67,8 +76,21 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 - Juegos: 10 tarjetas (icono por categoría, categoría, nombre, sitio, número, texto, botón Jugar
   en pestaña nueva, desplegable "¿Cómo entramos a dos?"), link a la hoja QR en la intro.
 - Pie: firma y aviso de no indexado.
+- Tarjeta de música (fija, abajo a la derecha; en móvil a lo ancho): punto que late, etiqueta
+  "Sonando · DtMF, Bad Bunny", plegar (oculta controles, el video sigue), cerrar (para la música
+  y esconde la tarjeta), reproductor 200×200, botones bajar / silenciar / subir, barras de nivel,
+  aviso "Toca la pantalla para que suene" cuando el navegador bloquea el arranque.
 
 ## Bitácora
+
+- 2026-09-25 (noche): mensaje definitivo de kei con firma "Con cariño, Kevin" (los saltos de
+  línea sueltos se respetan con `<br>`). Música: kei pidió el MP3 de DtMF tras la clave con
+  botones de volumen y mute; se le explicó el riesgo legal y eligió YouTube oficial. Hecho y
+  verificado en local: arranca al pulsar Entrar, botones cambian volumen de 10 en 10 y silencian,
+  se recuerdan; móvil revisado. Después, en ráfaga: párrafo del "Polo Norte" ampliado
+  ("recordandonos el calor del hogar estando tan lejos", literal, sin tilde como él lo escribió),
+  **tema claro eliminado** (tokens oscuros en `:root`, sin toggle) y la puerta pregunta "Dime un
+  número de 3 dígitos que traiga buena suerte" (la clave sigue siendo la misma).
 
 - 2026-09-25: kei pidió dinamismo en la portada: burbujas flotando que chocan e intercambian
   lugar, Natalia la más grande y sus apodos alrededor. Hecho con DOM + física simple (rebote en
