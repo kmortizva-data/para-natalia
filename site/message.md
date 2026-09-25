@@ -1,9 +1,21 @@
-Nati,
+Septiembre de 2026 tuvo de todo: risas, diversión, ternura y nostalgia.
 
-Se supone que esto es una despedida, pero no me sale escribirla así. Lo que me sale es decirte que te voy a extrañar: las conversaciones que empezaban con cualquier bobada y terminaban a las dos de la mañana, las risas que no se explican a nadie más, y esa manera tuya de aparecer justo cuando hacía falta.
+Te agradezco desde el fondo de mi corazón, porque pienso que son nuestras emociones y sentimientos los que nos hacen sentir vivos. Y experimentar cada nueva emoción no hubiera sido posible sin ti.
 
-Cambia la ciudad, no cambia lo demás. Por eso, en vez de un adiós, te dejo un plan: diez juegos para seguir perdiendo el tiempo juntos aunque haya un mapa de por medio. Escape rooms, dibujos horribles, ajedrez donde yo hago trampa, series a la misma hora. Baja un poco y elige uno; yo pongo la sala y te mando el link.
+Por eso, aunque me cueste escribir esto, sé que te voy a extrañar.
 
-Gracias por estos años. Nos vemos en la próxima partida.
+Voy a extrañar el espíritu aventurero de un “SÍ A TODO”.
+La ternura que me da abrazarte.
+El calor en el corazón que siento probando una arepa en Suecia.
+El perderme en tus historias y que podamos hablar horas y horas, o simplemente estar juntos sin decir nada.
 
-Kevin
+Quiero admitir que me siento muy afortunado de que hayamos cruzado caminos y vivido tan intensamente este mes.
+
+Tal vez la vida tenía planes de darnos una recarga en el Polo Norte, o de dejar una semilla de bellos instantes para más adelante.
+
+No lo sé.
+
+Lo que si se es que en Colombia tenemos un dicho
+“Como es el desayuno, es el almuerzo”.
+
+Y si este mes fue un desayuno, me quiero quedar hasta la cena.

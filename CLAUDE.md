@@ -50,7 +50,7 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 
 - [x] Palabra clave elegida (2026-09-24).
 - [ ] Soltar fotos en `fotos_originales/` y correr `prepare_photos.py`.
-- [ ] Revisar `site/message.md`.
+- [x] Mensaje definitivo de kei puesto el 2026-09-25 (texto suyo, literal).
 - [x] Repo público creado y primer push hecho (2026-09-24).
 - [x] Pages se publica con `.github/workflows/pages.yml` (Actions, carpeta `site/`); se activa solo.
 - [ ] Confirmar la lista de juegos o cambiar alguno en `games.json`.

@@ -84,7 +84,11 @@
       box.innerHTML = "";
       paras.forEach((p, i) => {
         const el = document.createElement("p");
-        el.textContent = p.replace(/\n/g, " ");
+        // single line breaks inside a paragraph are kept (lists, sayings)
+        p.split("\n").forEach((line, j) => {
+          if (j > 0) el.appendChild(document.createElement("br"));
+          el.appendChild(document.createTextNode(line.trim()));
+        });
         if (i === paras.length - 1 && p.length < 40) el.className = "letter__sign";
         box.appendChild(el);
       });
