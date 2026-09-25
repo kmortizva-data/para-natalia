@@ -1,0 +1,6 @@
+# Fotos que NO van al sitio (una por linea, nombre exacto del archivo).
+# Son versiones recortadas de otra foto que ya esta; el detector automatico no las ve.
+WhatsApp Image 2026-09-25 at 6.30.53 PMQAS.jpeg
+WhatsApp Image 2026-09-25 at 6.40.35 PM.jpeg
+WhatsApp Image 2026-09-25 at 6.36.53 PMVF.jpeg
+WhatsApp Image 2026-09-25 at 6.44.53 PMD.jpeg

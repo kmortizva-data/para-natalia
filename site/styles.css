@@ -356,12 +356,32 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   will-change: transform;
 }
 .lightbox__track.is-animating { transition: transform .32s cubic-bezier(.2,.7,.2,1); }
-.lightbox__img {
+.lightbox__img, .lightbox__video {
   width: 100vw; height: 100vh; flex: none;
   object-fit: contain; object-position: center;
   padding: 56px 8px 44px;
   box-sizing: border-box;
   user-select: none; -webkit-user-drag: none;
+}
+.lightbox__slot { width: 100vw; height: 100vh; flex: none; position: relative; }
+.lightbox__slot .lightbox__img, .lightbox__slot .lightbox__video { position: absolute; inset: 0; }
+.lightbox__video { background: #000; }
+
+/* video tiles in the mosaic */
+.gallery figure.is-video { position: relative; }
+.gallery figure.is-video::after {
+  content: "";
+  position: absolute; left: 50%; top: 50%; width: 52px; height: 52px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(11, 9, 7, .55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M9 6l10 6-10 6z'/%3E%3C/svg%3E") center / 22px no-repeat;
+  border: 1px solid rgba(255,255,255,.35);
+  pointer-events: none;
+}
+.gallery figure.is-video .gallery__dur {
+  position: absolute; right: 8px; bottom: 8px;
+  font: 600 11px var(--font-body); letter-spacing: .04em;
+  color: #fff; background: rgba(11, 9, 7, .6); padding: 3px 7px; border-radius: 999px;
 }
 .lightbox__close, .lightbox__nav {
   position: absolute; z-index: 3;

@@ -95,9 +95,14 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 - 2026-09-25 (fotos): kei soltó 81 fotos y 15 videos de WhatsApp en `fotos_originales/`.
   `prepare_photos.py` ahora deduplica (md5 exacto + hash perceptual a distancia ≤ 2): quitó 10
   repetidas → 71 fotos, 13.5 MB en `site/photos/`. Quedan 2 pares casi iguales (distancia 3-4,
-  posibles ráfagas) que se le mostraron a kei para que decida. Los **videos no se procesan**
-  (123 MB en total, 2 repetidos): pendiente de decisión de kei (comprimir con ffmpeg a ~40 MB y
-  meterlos al carrusel, o dejarlos fuera). Sección renombrada "Debí Tirar Más Fotos", mosaico
+  posibles ráfagas) que se le mostraron a kei para que decida.
+  **Videos (kei dijo "todos", noche del 25):** `prepare_photos.py` los re-codifica con ffmpeg
+  (H.264, ≤ 854 px, crf 30 con tope 1 Mbps, audio AAC 64k, sin metadatos) a `site/videos/NN.mp4`
+  + póster `NN.jpg`; 15 → 13 (2 copias exactas), 123 MB → 43 MB. Caché en `.cache/videos/<md5>`
+  (fuera de git) para no recodificar. El manifiesto mezcla fotos y videos por hora de WhatsApp.
+  En el carrusel el video se reproduce con controles nativos y la canción se pausa mientras
+  suena y vuelve al terminar. **Repetidas recortadas** (el hash no las ve): se listan a mano en
+  `fotos_originales/EXCLUIR.txt` (sí va a git); umbral del hash subido a 4 para cazar ráfagas. Sección renombrada "Debí Tirar Más Fotos", mosaico
   con 24 + "Ver las otras N", visor carrusel a pantalla completa con deslizamiento.
   Nota: el servidor local de Python corta las fotos grandes (ERR_CONNECTION_RESET, ver memoria
   "servidor Python en trozos"); en GitHub Pages no pasa.

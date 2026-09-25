@@ -140,12 +140,16 @@
     $("#player-close").addEventListener("click", () => { closed = true; if (ready) player.stopVideo(); card.classList.remove("is-on"); });
     render();
 
+    let ducked = false;
     return {
       // called synchronously inside the "Entrar" click
       start() {
         unlocked = true; show();
         if (ready) { player.playVideo(); armTapFallback(); } else { wantPlay = true; }
       },
+      // pause the song while one of Natalia's videos plays, resume after
+      duck() { if (ready && isPlaying()) { ducked = true; player.pauseVideo(); } },
+      resume() { if (ready && ducked) { ducked = false; player.playVideo(); } },
     };
   })();
 
@@ -196,14 +200,21 @@
     const FIRST = 24;
     const addTile = (p, i, extra) => {
       const fig = document.createElement("figure");
-      if (extra) { fig.className = "is-extra"; fig.hidden = true; }
+      if (extra) { fig.classList.add("is-extra"); fig.hidden = true; }
       const img = document.createElement("img");
-      img.src = p.src;
+      img.src = isVideo(p) ? p.poster : p.src;
       img.alt = "";
       img.loading = "lazy";
       img.decoding = "async";
       if (p.w && p.h) { img.width = p.w; img.height = p.h; }
       fig.appendChild(img);
+      if (isVideo(p)) {
+        fig.classList.add("is-video");
+        const dur = document.createElement("span");
+        dur.className = "gallery__dur";
+        dur.textContent = fmtDur(p.dur);
+        fig.appendChild(dur);
+      }
       fig.addEventListener("click", () => openLightbox(i));
       grid.appendChild(fig);
     };
@@ -231,11 +242,28 @@
   }
 
   /* full-screen carousel: three slots (prev / current / next) on a sliding track */
+  const isVideo = (p) => p && p.type === "video";
+  const fmtDur = (s) => { s = Math.round(s || 0); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; };
+  const still = (p) => (isVideo(p) ? p.poster : p.src);   // what to show in the side slots
   const wrap = (i) => (i + photos.length) % photos.length;
+  function stopVideo() {
+    const v = $("#lightbox-video");
+    if (!v.hidden) { v.pause(); v.removeAttribute("src"); v.load(); v.hidden = true; }
+    $("#lightbox-img").hidden = false;
+  }
   function render() {
-    $("#lightbox-prev-img").src = photos[wrap(current - 1)].src;
-    $("#lightbox-img").src = photos[current].src;
-    $("#lightbox-next-img").src = photos[wrap(current + 1)].src;
+    stopVideo();
+    const p = photos[current];
+    $("#lightbox-prev-img").src = still(photos[wrap(current - 1)]);
+    $("#lightbox-next-img").src = still(photos[wrap(current + 1)]);
+    if (isVideo(p)) {
+      const v = $("#lightbox-video");
+      $("#lightbox-img").hidden = true;
+      v.poster = p.poster; v.src = p.src; v.hidden = false;
+      v.play().catch(() => { /* needs a tap on some phones: controls are visible */ });
+    } else {
+      $("#lightbox-img").src = p.src;
+    }
     $("#lightbox-count").textContent = `${current + 1} / ${photos.length}`;
   }
   function openLightbox(i) {
@@ -248,6 +276,7 @@
     document.body.classList.add("locked");
   }
   function closeLightbox() {
+    stopVideo();
     $("#lightbox").close();
     document.body.classList.remove("locked");
   }
@@ -282,11 +311,17 @@
       if (e.key === "ArrowLeft") step(-1);
       if (e.key === "ArrowRight") step(1);
     });
+    // the song steps aside while a video plays
+    const vid = $("#lightbox-video");
+    vid.addEventListener("play", () => music.duck());
+    vid.addEventListener("pause", () => music.resume());
+    vid.addEventListener("ended", () => music.resume());
 
     // swipe: horizontal drag changes photo, downward drag closes, tap on the sides steps
     let start = null;
     stage.addEventListener("pointerdown", (e) => {
       if (sliding) return;
+      if (e.target.closest("video")) return;   // let the video's own controls work
       start = { x: e.clientX, y: e.clientY, t: performance.now() };
       stage.setPointerCapture(e.pointerId);
       track.classList.remove("is-animating");

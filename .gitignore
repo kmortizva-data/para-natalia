@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 .venv/
 Thumbs.db
+.cache/
+!fotos_originales/EXCLUIR.txt
