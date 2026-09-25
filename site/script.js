@@ -5,7 +5,9 @@
   // SHA-256 of the normalized pass word (lowercase, trimmed, accents removed).
   // Regenerate with:  python -c "import hashlib;print(hashlib.sha256(b'palabra').hexdigest())"
   const PASS_HASH = "9b871512327c09ce91dd649b3f96a63b7408ef267c8cc5710114e629730cb61f";
-  const STORAGE_KEY = "natalia:unlocked";
+  // The gate asks every visit on purpose (a shared PC must not stay open).
+  // Older versions remembered the unlock; clear that leftover.
+  try { localStorage.removeItem("natalia:unlocked"); } catch { /* ignore */ }
 
   const $ = (sel, root = document) => root.querySelector(sel);
 
@@ -35,7 +37,6 @@
 
   function initGate() {
     document.body.classList.add("locked");
-    if (safeGet(STORAGE_KEY) === PASS_HASH) { unlock(); music.onReturnVisit(); return; }
     const form = $("#gate-form");
     const input = $("#gate-word");
     const error = $("#gate-error");
@@ -53,7 +54,6 @@
     const decide = (ok) => {
       if (ok) {
         music.start();                       // still inside the click gesture
-        safeSet(STORAGE_KEY, PASS_HASH);
         unlock();
       } else {
         error.textContent = "Ese no es. Piensa en un número nuestro.";
@@ -145,9 +145,6 @@
         unlocked = true; show();
         if (ready) { player.playVideo(); armTapFallback(); } else { wantPlay = true; }
       },
-      // password remembered: no gesture available; the browser may refuse and
-      // the tap fallback then asks for one touch
-      onReturnVisit() { this.start(); },
     };
   })();
 

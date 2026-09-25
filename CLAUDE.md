@@ -11,6 +11,8 @@
   redimensiona a 1600 px, **borra EXIF (incluida ubicación GPS)** y escribe `site/photos/manifest.json`.
 - Privacidad: repo público (GitHub Pages gratis lo exige) + **clave sencilla** (palabra que elige
   kei, comparada por SHA-256 en el JS; no es seguridad real) + `noindex` + `robots.txt`.
+  **La clave se pide en cada visita** (pedido de kei 2026-09-25: que nadie en el PC de ella la
+  encuentre abierta); no se guarda nada en localStorage sobre el desbloqueo.
 - Mensaje: borrador de Claude en `site/message.md`; kei lo edita ahí y solo ahí.
 - Los 10 juegos viven en `site/games.json` (fuente única para la hoja QR y el sitio).
 - Repo: `para-natalia` en la cuenta `kmortizva-data` → `https://kmortizva-data.github.io/para-natalia/`.
