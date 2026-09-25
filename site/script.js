@@ -192,39 +192,117 @@
         "<div class='gallery__empty'><strong>Aquí van las fotos.</strong>Todavía las estoy eligiendo (hay demasiadas buenas).</div>";
       return;
     }
-    photos.forEach((p, i) => {
+    const FIRST = 24;
+    const addTile = (p, i) => {
       const fig = document.createElement("figure");
       const img = document.createElement("img");
       img.src = p.src;
       img.alt = "";
       img.loading = "lazy";
+      img.decoding = "async";
       if (p.w && p.h) { img.width = p.w; img.height = p.h; }
       fig.appendChild(img);
       fig.addEventListener("click", () => openLightbox(i));
       grid.appendChild(fig);
-    });
+    };
+    photos.slice(0, FIRST).forEach(addTile);
+    const more = $("#gallery-more");
+    if (photos.length > FIRST) {
+      more.hidden = false;
+      $("#gallery-more-btn").textContent = `Ver las otras ${photos.length - FIRST}`;
+      $("#gallery-more-btn").addEventListener("click", () => {
+        photos.slice(FIRST).forEach((p, j) => addTile(p, FIRST + j));
+        more.hidden = true;
+      }, { once: true });
+    }
     initLightbox();
   }
 
+  /* full-screen carousel: three slots (prev / current / next) on a sliding track */
+  const wrap = (i) => (i + photos.length) % photos.length;
+  function render() {
+    $("#lightbox-prev-img").src = photos[wrap(current - 1)].src;
+    $("#lightbox-img").src = photos[current].src;
+    $("#lightbox-next-img").src = photos[wrap(current + 1)].src;
+    $("#lightbox-count").textContent = `${current + 1} / ${photos.length}`;
+  }
   function openLightbox(i) {
     current = i;
-    $("#lightbox-img").src = photos[current].src;
+    render();
+    const track = $("#lightbox-track");
+    track.classList.remove("is-animating");
+    track.style.transform = "";
     $("#lightbox").showModal();
+    document.body.classList.add("locked");
   }
+  function closeLightbox() {
+    $("#lightbox").close();
+    document.body.classList.remove("locked");
+  }
+  let sliding = false;
   function step(delta) {
-    current = (current + delta + photos.length) % photos.length;
-    $("#lightbox-img").src = photos[current].src;
+    if (sliding || photos.length < 2) return;
+    sliding = true;
+    const track = $("#lightbox-track");
+    const w = innerWidth;
+    track.classList.add("is-animating");
+    track.style.transform = `translateX(${-delta * w}px)`;
+    const done = () => {
+      track.removeEventListener("transitionend", done);
+      current = wrap(current + delta);
+      track.classList.remove("is-animating");
+      track.style.transform = "";
+      render();
+      sliding = false;
+    };
+    track.addEventListener("transitionend", done);
+    setTimeout(() => { if (sliding) done(); }, 400);   // safety if transitionend never fires
   }
   function initLightbox() {
     const dlg = $("#lightbox");
-    $("#lightbox-close").addEventListener("click", () => dlg.close());
+    const stage = $("#lightbox-stage");
+    const track = $("#lightbox-track");
+    $("#lightbox-close").addEventListener("click", closeLightbox);
     $("#lightbox-prev").addEventListener("click", () => step(-1));
     $("#lightbox-next").addEventListener("click", () => step(1));
-    dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener("cancel", (e) => { e.preventDefault(); closeLightbox(); });   // Esc
     dlg.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") step(-1);
       if (e.key === "ArrowRight") step(1);
     });
+
+    // swipe: horizontal drag changes photo, downward drag closes, tap on the sides steps
+    let start = null;
+    stage.addEventListener("pointerdown", (e) => {
+      if (sliding) return;
+      start = { x: e.clientX, y: e.clientY, t: performance.now() };
+      stage.setPointerCapture(e.pointerId);
+      track.classList.remove("is-animating");
+    });
+    stage.addEventListener("pointermove", (e) => {
+      if (!start) return;
+      const dx = e.clientX - start.x, dy = e.clientY - start.y;
+      if (Math.abs(dx) > Math.abs(dy)) track.style.transform = `translateX(${dx}px)`;
+      else if (dy > 0) track.style.transform = `translateY(${dy}px)`;
+    });
+    const end = (e) => {
+      if (!start) return;
+      const dx = e.clientX - start.x, dy = e.clientY - start.y;
+      const dt = performance.now() - start.t;
+      start = null;
+      const fast = dt < 250 && Math.abs(dx) > 20;
+      if (Math.abs(dx) > Math.abs(dy) && (Math.abs(dx) > 40 || fast)) { step(dx < 0 ? 1 : -1); return; }
+      if (dy > 90 && Math.abs(dx) < 60) { closeLightbox(); track.style.transform = ""; return; }
+      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) {          // a tap: left third back, right third forward
+        const x = e.clientX / innerWidth;
+        if (x < 0.3) step(-1); else if (x > 0.7) step(1);
+        return;
+      }
+      track.classList.add("is-animating");
+      track.style.transform = "";
+    };
+    stage.addEventListener("pointerup", end);
+    stage.addEventListener("pointercancel", end);
   }
 
   /* ---------- games ---------- */

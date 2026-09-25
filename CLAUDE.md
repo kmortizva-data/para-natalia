@@ -74,7 +74,11 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
   más brilla, mi parcera, china mk, ojitos lindos; física propia en `initBubbles`, arrastrables,
   estáticas si `prefers-reduced-motion`), subtítulo, flecha "Baja".
 - Mensaje: tarjeta con comillas, párrafos de `message.md`, firma en cursiva.
-- Fotos: mosaico de columnas + visor (cerrar, anterior, siguiente, flechas del teclado, Esc).
+- Fotos ("Debí Tirar Más Fotos"): mosaico de columnas con las primeras 24 + botón "Ver las
+  otras N"; visor a pantalla completa tipo carrusel (contador, cerrar, flechas en escritorio,
+  deslizar con el dedo, toque en los bordes, arrastre hacia abajo cierra, Esc, teclado).
+  El lead de la sección es la línea de `index.html` comentada "Cambia esta línea": kei pidió
+  poner letra de la canción y NO se hace (no se reproducen letras); él la pega si quiere.
 - Juegos: 10 tarjetas (icono por categoría, categoría, nombre, sitio, número, texto, botón Jugar
   en pestaña nueva, desplegable "¿Cómo entramos a dos?"), link a la hoja QR en la intro.
 - Pie: firma y aviso de no indexado.
@@ -84,6 +88,16 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
   aviso "Toca la pantalla para que suene" cuando el navegador bloquea el arranque.
 
 ## Bitácora
+
+- 2026-09-25 (fotos): kei soltó 81 fotos y 15 videos de WhatsApp en `fotos_originales/`.
+  `prepare_photos.py` ahora deduplica (md5 exacto + hash perceptual a distancia ≤ 2): quitó 10
+  repetidas → 71 fotos, 13.5 MB en `site/photos/`. Quedan 2 pares casi iguales (distancia 3-4,
+  posibles ráfagas) que se le mostraron a kei para que decida. Los **videos no se procesan**
+  (123 MB en total, 2 repetidos): pendiente de decisión de kei (comprimir con ffmpeg a ~40 MB y
+  meterlos al carrusel, o dejarlos fuera). Sección renombrada "Debí Tirar Más Fotos", mosaico
+  con 24 + "Ver las otras N", visor carrusel a pantalla completa con deslizamiento.
+  Nota: el servidor local de Python corta las fotos grandes (ERR_CONNECTION_RESET, ver memoria
+  "servidor Python en trozos"); en GitHub Pages no pasa.
 
 - 2026-09-25 (noche): mensaje definitivo de kei con firma "Con cariño, Kevin" (los saltos de
   línea sueltos se respetan con `<br>`). Música: kei pidió el MP3 de DtMF tras la clave con

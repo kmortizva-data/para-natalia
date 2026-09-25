@@ -73,10 +73,17 @@
       <section class="section section--photos" id="fotos">
         <div class="section__head reveal">
           <span class="section__num">02</span>
-          <h2 class="section__title">Nosotros</h2>
-          <p class="section__lead">Sin filtro y sin orden, como corresponde.</p>
+          <h2 class="section__title">Debí Tirar Más Fotos</h2>
+          <!-- Pega aquí los versos que quieras, uno por línea, entre las etiquetas <p> -->
+          <blockquote class="section__quote">
+            <p>Las veces que sí la tiré.</p>
+            <cite>DtMF · Bad Bunny</cite>
+          </blockquote>
         </div>
         <div class="gallery reveal" id="gallery"></div>
+        <div class="gallery__more" id="gallery-more" hidden>
+          <button class="btn" id="gallery-more-btn" type="button">Ver las demás</button>
+        </div>
       </section>
 
       <section class="section section--games" id="juegos">
@@ -94,18 +101,28 @@
       <p class="foot__small">Esta página no aparece en buscadores. Si la encontraste sin ser Nati, sé buena onda y ciérrala.</p>
     </footer>
 
-    <!-- Lightbox -->
-    <dialog class="lightbox" id="lightbox">
-      <button class="lightbox__close" id="lightbox-close" type="button" aria-label="Cerrar">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
+    <!-- Full-screen carousel -->
+    <dialog class="lightbox" id="lightbox" aria-label="Fotos a pantalla completa">
+      <div class="lightbox__top">
+        <span class="lightbox__count" id="lightbox-count">1 / 1</span>
+        <button class="lightbox__close" id="lightbox-close" type="button" aria-label="Cerrar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="lightbox__stage" id="lightbox-stage">
+        <div class="lightbox__track" id="lightbox-track">
+          <img class="lightbox__img" id="lightbox-prev-img" alt="" draggable="false">
+          <img class="lightbox__img" id="lightbox-img" alt="" draggable="false">
+          <img class="lightbox__img" id="lightbox-next-img" alt="" draggable="false">
+        </div>
+      </div>
       <button class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" type="button" aria-label="Anterior">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
       </button>
-      <img id="lightbox-img" alt="">
       <button class="lightbox__nav lightbox__nav--next" id="lightbox-next" type="button" aria-label="Siguiente">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
       </button>
+      <p class="lightbox__hint">Desliza para pasar · arrastra hacia abajo para cerrar</p>
     </dialog>
   </div>
 
