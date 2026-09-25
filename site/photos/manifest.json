@@ -108,14 +108,14 @@
   {
     "type": "image",
     "src": "photos/16.jpg",
-    "w": 1200,
-    "h": 1600
+    "w": 1800,
+    "h": 2400
   },
   {
     "type": "image",
     "src": "photos/17.jpg",
-    "w": 1200,
-    "h": 1600
+    "w": 1800,
+    "h": 2400
   },
   {
     "type": "image",
@@ -234,20 +234,20 @@
   {
     "type": "image",
     "src": "photos/33.jpg",
-    "w": 1600,
-    "h": 1200
+    "w": 2400,
+    "h": 1800
   },
   {
     "type": "image",
     "src": "photos/34.jpg",
-    "w": 1600,
-    "h": 1200
+    "w": 2400,
+    "h": 1800
   },
   {
     "type": "image",
     "src": "photos/35.jpg",
-    "w": 1600,
-    "h": 1200
+    "w": 2400,
+    "h": 1800
   },
   {
     "type": "image",
@@ -264,8 +264,8 @@
   {
     "type": "image",
     "src": "photos/38.jpg",
-    "w": 1200,
-    "h": 1600
+    "w": 1800,
+    "h": 2400
   },
   {
     "type": "image",

@@ -102,7 +102,11 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
   (fuera de git) para no recodificar. El manifiesto mezcla fotos y videos por hora de WhatsApp.
   En el carrusel el video se reproduce con controles nativos y la canción se pausa mientras
   suena y vuelve al terminar. **Repetidas recortadas** (el hash no las ve): se listan a mano en
-  `fotos_originales/EXCLUIR.txt` (sí va a git); umbral del hash subido a 4 para cazar ráfagas. Sección renombrada "Debí Tirar Más Fotos", mosaico
+  `fotos_originales/EXCLUIR.txt` (sí va a git); umbral del hash subido a 4 para cazar ráfagas.
+  **Calidad (kei: "se ven mejor en mi celular"):** fotos a calidad 92, sin submuestreo de color
+  (4:4:4) y hasta 2400 px; videos a crf 24 con tope 2.2 Mbps y hasta 1080 px de ancho (caché
+  `-v2`). Límite real: WhatsApp ya entrega la mayoría a 1600 px y los videos a 848 px; por encima
+  de eso no hay más detalle que rescatar. Sección renombrada "Debí Tirar Más Fotos", mosaico
   con 24 + "Ver las otras N", visor carrusel a pantalla completa con deslizamiento.
   Nota: el servidor local de Python corta las fotos grandes (ERR_CONNECTION_RESET, ver memoria
   "servidor Python en trozos"); en GitHub Pages no pasa.

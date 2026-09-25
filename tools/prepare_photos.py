@@ -3,7 +3,7 @@
 Reads everything in fotos_originales/ (never committed), skips duplicates,
 and writes:
   site/photos/NN.jpg      photos, orientation fixed, max MAX_SIDE px, no metadata
-  site/videos/NN.mp4      videos re-encoded (H.264, <= 854 px wide, ~1 Mbps) + NN.jpg poster
+  site/videos/NN.mp4      videos re-encoded (H.264, <= 1080 px wide, ~2 Mbps) + NN.jpg poster
   site/photos/manifest.json   one list, photos and videos mixed in WhatsApp order
 
 Duplicate detection:
@@ -37,8 +37,8 @@ CACHE = ROOT / ".cache" / "videos"
 FFMPEG = Path.home() / "tools" / "ffmpeg" / "bin" / "ffmpeg.exe"
 FFPROBE = Path.home() / "tools" / "ffmpeg" / "bin" / "ffprobe.exe"
 
-MAX_SIDE = 1600
-QUALITY = 84
+MAX_SIDE = 2400
+QUALITY = 92          # WhatsApp already compressed most of them; do not add a second visible loss
 NEAR_DISTANCE = 4          # hamming distance on a 256-bit hash; <= 4 = same shot (bursts included)
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 VIDEO_EXTS = {".mp4", ".mov", ".m4v"}
@@ -98,13 +98,13 @@ def probe(p: Path) -> dict:
 def encode_video(src: Path, md5: str) -> tuple[Path, Path]:
     """Return (mp4, poster) from the cache, encoding if needed."""
     CACHE.mkdir(parents=True, exist_ok=True)
-    mp4, poster = CACHE / f"{md5}.mp4", CACHE / f"{md5}.jpg"
+    mp4, poster = CACHE / f"{md5}-v2.mp4", CACHE / f"{md5}-v2.jpg"   # v2 = higher quality settings
     if not mp4.exists():
         print(f"    encoding {src.name} ...")
         subprocess.run(
             [str(FFMPEG), "-y", "-v", "error", "-i", str(src),
-             "-vf", "scale='min(854,iw)':-2",
-             "-c:v", "libx264", "-preset", "medium", "-crf", "30", "-maxrate", "1000k", "-bufsize", "2000k",
+             "-vf", "scale='min(1080,iw)':-2",
+             "-c:v", "libx264", "-preset", "medium", "-crf", "24", "-maxrate", "2200k", "-bufsize", "4400k",
              "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "64k", "-ac", "2",
              "-map_metadata", "-1", "-movflags", "+faststart", str(mp4)],
             check=True)
@@ -154,7 +154,7 @@ def main() -> int:
             with Image.open(poster_src) as im:
                 im = im.convert("RGB")
                 im.thumbnail((MAX_SIDE, MAX_SIDE), Image.LANCZOS)
-                im.save(DST_VIDEOS / f"{name}.jpg", "JPEG", quality=QUALITY, optimize=True, progressive=True)
+                im.save(DST_VIDEOS / f"{name}.jpg", "JPEG", quality=QUALITY, subsampling=0, optimize=True, progressive=True)
                 pw, ph = im.size
             manifest.append({"type": "video", "src": f"videos/{name}.mp4", "poster": f"videos/{name}.jpg",
                              "w": pw, "h": ph, "dur": info["dur"]})
@@ -176,7 +176,7 @@ def main() -> int:
             n_photo += 1
             name = f"{n_photo:02d}.jpg"
             # No exif= argument -> nothing from the original is carried over.
-            im.save(DST_PHOTOS / name, "JPEG", quality=QUALITY, optimize=True, progressive=True)
+            im.save(DST_PHOTOS / name, "JPEG", quality=QUALITY, subsampling=0, optimize=True, progressive=True)
         manifest.append({"type": "image", "src": f"photos/{name}", "w": w, "h": hgt})
         print(f"  {src.name} -> {name} ({w}x{hgt})")
 
