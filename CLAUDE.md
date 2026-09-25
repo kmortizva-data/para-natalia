@@ -68,8 +68,11 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 
 - Puerta: campo "Dime un número de 3 dígitos que traiga buena suerte" (teclado numérico) + botón
   Entrar + error "Ese no es. Piensa en un número nuestro." con sacudida.
-- Barra: marca, nav (Mensaje/Fotos/Juegos, solo ≥720 px). Sin botón de tema: la página es
-  siempre oscura por decisión de kei (2026-09-25).
+- Barra: solo la marca. Sin botón de tema (siempre oscura, decisión de kei 2026-09-25). Los menús
+  de arriba se quitaron el 2026-09-25: los reemplaza el **panel lateral** (Inicio / Mensaje /
+  Fotos / Juegos, fijo arriba a la derecha bajo la barra, resalta la sección actual, pestaña
+  para esconderlo y recuerda la elección). Se puso arriba porque a media altura lo tapaba la
+  tarjeta de música.
 - Portada: eyebrow, "Te extraño,", **burbujas** (Natalia grande + gold nugget, la esmeralda que
   más brilla, mi parcera, china mk, ojitos lindos; física propia en `initBubbles`, arrastrables,
   estáticas si `prefers-reduced-motion`), subtítulo, flecha "Baja".
