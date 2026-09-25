@@ -195,7 +195,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   text-align: center;
   padding: calc(var(--d) * 0.12px);
   box-sizing: border-box;
-  font: 500 calc(var(--d) * 0.13px) / 1.1 var(--font-display);
+  font: 500 max(11px, calc(var(--d) * 0.115px)) / 1.1 var(--font-display);
   letter-spacing: -0.01em;
   color: var(--ink);
   --tint: var(--sage);
@@ -215,7 +215,7 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   --tint: var(--accent);
   z-index: 2;
   font-weight: 600; font-style: italic;
-  font-size: calc(var(--d) * 0.2px);
+  font-size: calc(var(--d) * 0.18px);
   color: var(--accent);
 }
 .bubble:nth-child(2) { --tint: var(--gold); }

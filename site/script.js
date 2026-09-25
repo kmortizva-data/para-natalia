@@ -215,7 +215,7 @@
 
     function layout() {
       W = box.clientWidth; H = box.clientHeight;
-      base = Math.min(W * 0.19, H * 0.3);  // radius of the main bubble
+      base = Math.min(W * 0.14, H * 0.23);  // radius of the main bubble
       bubbles.forEach((b, i) => {
         b.r = base * b.k;
         b.m = b.r * b.r;
@@ -229,7 +229,7 @@
             b.x = W / 2 + Math.cos(a) * ring * 0.8;
             b.y = H / 2 + Math.sin(a) * ring * 0.8;
           }
-          const ang = Math.random() * Math.PI * 2, sp = 50 + Math.random() * 40;
+          const ang = Math.random() * Math.PI * 2, sp = 90 + Math.random() * 60;
           b.vx = Math.cos(ang) * sp;
           b.vy = Math.sin(ang) * sp;
         }
@@ -244,12 +244,12 @@
     }
 
     function step(dt) {
-      const MAX = 110, MIN = 30;      // px per second
+      const MAX = 170, MIN = 70;      // px per second
       bubbles.forEach((b) => {
         if (b.held) return;
         // gentle wandering so they never settle in a corner
-        b.vx += (Math.random() - 0.5) * 120 * dt;
-        b.vy += (Math.random() - 0.5) * 120 * dt;
+        b.vx += (Math.random() - 0.5) * 200 * dt;
+        b.vy += (Math.random() - 0.5) * 200 * dt;
         const s = Math.hypot(b.vx, b.vy);
         if (s > MAX) { b.vx *= MAX / s; b.vy *= MAX / s; }
         if (s < MIN) { const k = (MIN + 5) / (s || 1); b.vx *= k; b.vy *= k; }
