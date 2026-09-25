@@ -215,7 +215,8 @@
 
     function layout() {
       W = box.clientWidth; H = box.clientHeight;
-      base = Math.min(W * 0.14, H * 0.23);  // radius of the main bubble
+      // radius of the main bubble; phones keep a bit more size so the labels still fit
+      base = Math.min(W * (W < 600 ? 0.19 : 0.14), H * 0.23);
       bubbles.forEach((b, i) => {
         b.r = base * b.k;
         b.m = b.r * b.r;
