@@ -55,7 +55,27 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 - [x] Pages se publica con `.github/workflows/pages.yml` (Actions, carpeta `site/`); se activa solo.
 - [ ] Confirmar la lista de juegos o cambiar alguno en `games.json`.
 
+## Inventario de UI (para auditar tras refactors)
+
+- Puerta: input "La palabra" + botón Entrar + mensaje de error con sacudida.
+- Barra: marca, nav (Mensaje/Fotos/Juegos, solo ≥720 px), botón de tema.
+- Portada: eyebrow, "Te extraño,", **burbujas** (Natalia grande + gold nugget, la esmeralda que
+  más brilla, mi parcera, china mk, ojitos lindos; física propia en `initBubbles`, arrastrables,
+  estáticas si `prefers-reduced-motion`), subtítulo, flecha "Baja".
+- Mensaje: tarjeta con comillas, párrafos de `message.md`, firma en cursiva.
+- Fotos: mosaico de columnas + visor (cerrar, anterior, siguiente, flechas del teclado, Esc).
+- Juegos: 10 tarjetas (icono por categoría, categoría, nombre, sitio, número, texto, botón Jugar
+  en pestaña nueva, desplegable "¿Cómo entramos a dos?"), link a la hoja QR en la intro.
+- Pie: firma y aviso de no indexado.
+
 ## Bitácora
+
+- 2026-09-25: kei pidió dinamismo en la portada: burbujas flotando que chocan e intercambian
+  lugar, Natalia la más grande y sus apodos alrededor. Hecho con DOM + física simple (rebote en
+  paredes, choques elásticos con masa ∝ r², deriva aleatoria, arrastre con el dedo). Bug real
+  cazado con medición: el `padding: 12%` inflaba todas las burbujas pequeñas a 236 px (el
+  porcentaje es del ancho de la caja), por eso se montaban; ahora el padding va en función de
+  `--d`. Verificado en escritorio, móvil 375 px y modo oscuro.
 
 - 2026-09-24: plan aprobado. Hecho el mismo día: estructura, `games.json`, hoja QR (los 11 códigos
   se decodifican con zxing-cpp desde el PNG), sitio completo y verificado en local con capturas
