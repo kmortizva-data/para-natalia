@@ -92,6 +92,12 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 
 ## Bitácora
 
+- 2026-09-25 (sesión en la nube): kei mandó una foto más (flores moradas con el Ayuntamiento de
+  Estocolmo al fondo, 1280×960, sin EXIF). Como los originales no están en la nube, se procesó
+  con los mismos ajustes de `prepare_photos.py` a mano → `site/photos/66.jpg`, añadida al final
+  de `manifest.json` (no es repetida: distancia ≥ 48 con todo lo publicado). **Ojo:** si kei no
+  guarda esa foto en `fotos_originales/` de su PC, la próxima corrida del script la borra.
+
 - 2026-09-25 (fotos): kei soltó 81 fotos y 15 videos de WhatsApp en `fotos_originales/`.
   `prepare_photos.py` ahora deduplica (md5 exacto + hash perceptual a distancia ≤ 2): quitó 10
   repetidas → 71 fotos, 13.5 MB en `site/photos/`. Quedan 2 pares casi iguales (distancia 3-4,
