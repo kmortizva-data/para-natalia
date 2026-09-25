@@ -45,6 +45,7 @@
     loadGallery();
     loadGames();
     initReveal();
+    initBubbles();
   }
 
   function initGate() {
@@ -202,6 +203,129 @@
   }
 
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  /* ---------- floating bubbles (simple 2D physics, DOM based) ---------- */
+  function initBubbles() {
+    const box = $("#bubbles");
+    if (!box) return;
+    const els = [...box.querySelectorAll(".bubble")];
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let W = 0, H = 0, base = 0;
+    const bubbles = els.map((el) => ({ el, k: parseFloat(el.dataset.r) || 0.5, x: 0, y: 0, vx: 0, vy: 0, r: 0, m: 1, held: false }));
+
+    function layout() {
+      W = box.clientWidth; H = box.clientHeight;
+      base = Math.min(W * 0.19, H * 0.3);  // radius of the main bubble
+      bubbles.forEach((b, i) => {
+        b.r = base * b.k;
+        b.m = b.r * b.r;
+        b.el.style.setProperty("--d", (b.r * 2).toFixed(1));
+        if (b.x === 0 && b.y === 0) {
+          // main in the middle, the rest on a ring around it
+          if (i === 0) { b.x = W / 2; b.y = H / 2; }
+          else {
+            const a = (i - 1) / (bubbles.length - 1) * Math.PI * 2 - Math.PI / 2;
+            const ring = Math.min(W, H) * 0.5 - b.r;
+            b.x = W / 2 + Math.cos(a) * ring * 0.8;
+            b.y = H / 2 + Math.sin(a) * ring * 0.8;
+          }
+          const ang = Math.random() * Math.PI * 2, sp = 50 + Math.random() * 40;
+          b.vx = Math.cos(ang) * sp;
+          b.vy = Math.sin(ang) * sp;
+        }
+        b.x = Math.min(Math.max(b.x, b.r), W - b.r);
+        b.y = Math.min(Math.max(b.y, b.r), H - b.r);
+      });
+      draw();
+    }
+
+    function draw() {
+      bubbles.forEach((b) => { b.el.style.transform = `translate(${(b.x - b.r).toFixed(1)}px, ${(b.y - b.r).toFixed(1)}px)`; });
+    }
+
+    function step(dt) {
+      const MAX = 110, MIN = 30;      // px per second
+      bubbles.forEach((b) => {
+        if (b.held) return;
+        // gentle wandering so they never settle in a corner
+        b.vx += (Math.random() - 0.5) * 120 * dt;
+        b.vy += (Math.random() - 0.5) * 120 * dt;
+        const s = Math.hypot(b.vx, b.vy);
+        if (s > MAX) { b.vx *= MAX / s; b.vy *= MAX / s; }
+        if (s < MIN) { const k = (MIN + 5) / (s || 1); b.vx *= k; b.vy *= k; }
+        b.x += b.vx * dt; b.y += b.vy * dt;
+        // walls
+        if (b.x < b.r) { b.x = b.r; b.vx = Math.abs(b.vx) * 0.9; }
+        if (b.x > W - b.r) { b.x = W - b.r; b.vx = -Math.abs(b.vx) * 0.9; }
+        if (b.y < b.r) { b.y = b.r; b.vy = Math.abs(b.vy) * 0.9; }
+        if (b.y > H - b.r) { b.y = H - b.r; b.vy = -Math.abs(b.vy) * 0.9; }
+      });
+      // pairwise collisions: separate, then exchange momentum along the normal
+      for (let i = 0; i < bubbles.length; i++) {
+        for (let j = i + 1; j < bubbles.length; j++) {
+          const a = bubbles[i], c = bubbles[j];
+          let dx = c.x - a.x, dy = c.y - a.y;
+          let d = Math.hypot(dx, dy) || 0.01;
+          const min = a.r + c.r;
+          if (d >= min) continue;
+          const nx = dx / d, ny = dy / d;
+          const overlap = min - d;
+          const ta = a.held ? 0 : (c.held ? 1 : c.m / (a.m + c.m));
+          const tc = c.held ? 0 : (a.held ? 1 : a.m / (a.m + c.m));
+          a.x -= nx * overlap * ta; a.y -= ny * overlap * ta;
+          c.x += nx * overlap * tc; c.y += ny * overlap * tc;
+          const rvx = c.vx - a.vx, rvy = c.vy - a.vy;
+          const vn = rvx * nx + rvy * ny;
+          if (vn > 0) continue;
+          const e = 0.92;
+          const jImp = -(1 + e) * vn / (1 / a.m + 1 / c.m);
+          if (!a.held) { a.vx -= jImp / a.m * nx; a.vy -= jImp / a.m * ny; }
+          if (!c.held) { c.vx += jImp / c.m * nx; c.vy += jImp / c.m * ny; }
+        }
+      }
+    }
+
+    // drag with the pointer: the bubble follows the finger and keeps its throw speed
+    let grabbed = null, last = null;
+    box.addEventListener("pointerdown", (e) => {
+      const rect = box.getBoundingClientRect();
+      const px = e.clientX - rect.left, py = e.clientY - rect.top;
+      grabbed = bubbles.find((b) => Math.hypot(b.x - px, b.y - py) <= b.r) || null;
+      if (!grabbed) return;
+      grabbed.held = true; grabbed.vx = grabbed.vy = 0;
+      last = { x: px, y: py, t: performance.now() };
+      box.setPointerCapture(e.pointerId);
+    });
+    box.addEventListener("pointermove", (e) => {
+      if (!grabbed) return;
+      const rect = box.getBoundingClientRect();
+      const px = e.clientX - rect.left, py = e.clientY - rect.top;
+      const now = performance.now(), dt = Math.max((now - last.t) / 1000, 0.008);
+      grabbed.vx = (px - last.x) / dt; grabbed.vy = (py - last.y) / dt;
+      grabbed.x = Math.min(Math.max(px, grabbed.r), W - grabbed.r);
+      grabbed.y = Math.min(Math.max(py, grabbed.r), H - grabbed.r);
+      last = { x: px, y: py, t: now };
+    });
+    const release = () => { if (grabbed) { grabbed.held = false; grabbed = null; } };
+    box.addEventListener("pointerup", release);
+    box.addEventListener("pointercancel", release);
+
+    layout();
+    if (reduced) return;                  // static composition, no animation
+    let prev = performance.now();
+    function frame(now) {
+      const dt = Math.min((now - prev) / 1000, 0.05);
+      prev = now;
+      if (!document.hidden) { step(dt); draw(); }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    addEventListener("resize", () => {
+      const ow = W, oh = H;
+      bubbles.forEach((b) => { b.x = b.x / ow * box.clientWidth; b.y = b.y / oh * box.clientHeight; });
+      layout();
+    });
+  }
 
   /* ---------- reveal on scroll ---------- */
   function initReveal() {
