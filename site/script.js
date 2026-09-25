@@ -33,6 +33,7 @@
     loadGames();
     initReveal();
     initBubbles();
+    initDock();
   }
 
   function initGate() {
@@ -193,8 +194,9 @@
       return;
     }
     const FIRST = 24;
-    const addTile = (p, i) => {
+    const addTile = (p, i, extra) => {
       const fig = document.createElement("figure");
+      if (extra) { fig.className = "is-extra"; fig.hidden = true; }
       const img = document.createElement("img");
       img.src = p.src;
       img.alt = "";
@@ -205,15 +207,25 @@
       fig.addEventListener("click", () => openLightbox(i));
       grid.appendChild(fig);
     };
-    photos.slice(0, FIRST).forEach(addTile);
+    photos.forEach((p, i) => addTile(p, i, i >= FIRST));
     const more = $("#gallery-more");
     if (photos.length > FIRST) {
       more.hidden = false;
-      $("#gallery-more-btn").textContent = `Ver las otras ${photos.length - FIRST}`;
-      $("#gallery-more-btn").addEventListener("click", () => {
-        photos.slice(FIRST).forEach((p, j) => addTile(p, FIRST + j));
-        more.hidden = true;
-      }, { once: true });
+      const btn = $("#gallery-more-btn");
+      const label = $("#gallery-more-label");
+      const rest = photos.length - FIRST;
+      let open = false;
+      const paint = () => {
+        grid.querySelectorAll("figure.is-extra").forEach((f) => { f.hidden = !open; });
+        btn.setAttribute("aria-expanded", String(open));
+        label.textContent = open ? "Ver menos" : `Ver más (${rest})`;
+      };
+      paint();
+      btn.addEventListener("click", () => {
+        open = !open;
+        paint();
+        if (!open) $("#fotos").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
     }
     initLightbox();
   }
@@ -483,6 +495,31 @@
       bubbles.forEach((b) => { b.x = b.x / ow * box.clientWidth; b.y = b.y / oh * box.clientHeight; });
       layout();
     });
+  }
+
+  /* ---------- side dock: quick jumps, hideable, highlights the current section ---------- */
+  function initDock() {
+    const dock = $("#dock");
+    const toggle = $("#dock-toggle");
+    const DOCK_KEY = "natalia:dock";
+    const setHidden = (h) => {
+      dock.classList.toggle("is-hidden", h);
+      toggle.setAttribute("aria-expanded", String(!h));
+      toggle.setAttribute("aria-label", h ? "Mostrar atajos" : "Ocultar atajos");
+      safeSet(DOCK_KEY, h ? "hidden" : "shown");
+    };
+    setHidden(safeGet(DOCK_KEY) === "hidden");
+    toggle.addEventListener("click", () => setHidden(!dock.classList.contains("is-hidden")));
+    const links = [...dock.querySelectorAll(".dock__link")];
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => {
+          if (!en.isIntersecting) return;
+          links.forEach((a) => a.classList.toggle("is-active", a.dataset.target === en.target.id));
+        });
+      }, { rootMargin: "-40% 0px -50% 0px" });
+      ["inicio", "mensaje", "fotos", "juegos"].forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    }
   }
 
   /* ---------- reveal on scroll ---------- */

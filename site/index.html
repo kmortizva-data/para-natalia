@@ -41,6 +41,27 @@
       </nav>
     </header>
 
+    <!-- Side dock: quick jumps, can be tucked away -->
+    <nav class="dock" id="dock" aria-label="Atajos">
+      <button class="dock__toggle" id="dock-toggle" type="button" aria-label="Ocultar atajos" aria-expanded="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="dock__links">
+        <a class="dock__link" href="#inicio" data-target="inicio" aria-label="Inicio">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Inicio</span>
+        </a>
+        <a class="dock__link" href="#mensaje" data-target="mensaje" aria-label="Mensaje">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v10H8l-4 4z"/></svg><span>Mensaje</span>
+        </a>
+        <a class="dock__link" href="#fotos" data-target="fotos" aria-label="Fotos">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span>Fotos</span>
+        </a>
+        <a class="dock__link" href="#juegos" data-target="juegos" aria-label="Juegos">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="11" rx="4"/><path d="M8 11v3M6.5 12.5h3"/><circle cx="16" cy="11.5" r="1" fill="currentColor"/><circle cx="18" cy="13.5" r="1" fill="currentColor"/></svg><span>Juegos</span>
+        </a>
+      </div>
+    </nav>
+
     <main>
       <section class="hero" id="inicio">
         <p class="eyebrow reveal">A la distancia que sea</p>
@@ -76,13 +97,19 @@
           <h2 class="section__title">Debí Tirar Más Fotos</h2>
           <!-- Pega aquí los versos que quieras, uno por línea, entre las etiquetas <p> -->
           <blockquote class="section__quote">
-            <p>Las veces que sí la tiré.</p>
+            <p>"Debi darte más besos y
+abrazos las veces que pude
+Ey, Ojala que los mios nunca se muden
+Y si hoy me emborracho, pues, que me ayuden"</p>
             <cite>DtMF · Bad Bunny</cite>
           </blockquote>
         </div>
         <div class="gallery reveal" id="gallery"></div>
         <div class="gallery__more" id="gallery-more" hidden>
-          <button class="btn" id="gallery-more-btn" type="button">Ver las demás</button>
+          <button class="btn gallery__more-btn" id="gallery-more-btn" type="button" aria-expanded="false" aria-controls="gallery">
+            <span id="gallery-more-label">Ver más</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
         </div>
       </section>
 

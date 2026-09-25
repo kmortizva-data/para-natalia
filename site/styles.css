@@ -296,8 +296,47 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .section__quote p { margin: 0; font: italic 400 clamp(18px, 2.4vw, 22px)/1.45 var(--font-display); color: var(--ink); white-space: pre-line; }
 .section__quote cite { display: block; margin-top: 8px; font: 600 12px var(--font-body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-style: normal; }
 
-/* "Ver las demás" */
+/* "Ver más" / "Ver menos" */
 .gallery__more { text-align: center; margin-top: 18px; }
+.gallery__more-btn { display: inline-flex; align-items: center; gap: 8px; }
+.gallery__more-btn svg { width: 16px; height: 16px; transition: transform .25s ease; }
+.gallery__more-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.gallery figure.is-extra { animation: rise .5s ease both; }
+.gallery figure.is-extra[hidden] { display: none; }
+
+/* Side dock */
+.dock {
+  position: fixed; right: 12px; top: 50%; z-index: 25;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+}
+.dock__toggle, .dock__link {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 40px; border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-2) 85%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  color: var(--ink-2); text-decoration: none;
+  font: 600 13px var(--font-body);
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, transform .2s ease, opacity .25s ease;
+}
+.dock__toggle { width: 28px; height: 28px; justify-content: center; padding: 0; color: var(--muted); }
+.dock__toggle svg { width: 14px; height: 14px; transition: transform .25s ease; }
+.dock__link { padding: 0 12px 0 10px; }
+.dock__link svg { width: 18px; height: 18px; flex: none; }
+.dock__link span { max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0; transition: max-width .25s ease, opacity .2s ease; }
+.dock:hover .dock__link span, .dock__link:focus-visible span { max-width: 80px; opacity: 1; }
+.dock__link:hover, .dock__link.is-active { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+.dock__links { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.dock.is-hidden .dock__links { opacity: 0; pointer-events: none; transform: translateX(16px); }
+.dock__links { transition: opacity .25s ease, transform .25s ease; }
+.dock.is-hidden .dock__toggle svg { transform: rotate(180deg); }
+@media (max-width: 599px) {
+  .dock { right: 8px; }
+  .dock__link { padding: 0 10px; }
+  .dock__link span { display: none; }
+}
 
 /* Full-screen carousel */
 .lightbox {
