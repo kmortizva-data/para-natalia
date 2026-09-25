@@ -76,6 +76,9 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
   cazado con medición: el `padding: 12%` inflaba todas las burbujas pequeñas a 236 px (el
   porcentaje es del ancho de la caja), por eso se montaban; ahora el padding va en función de
   `--d`. Verificado en escritorio, móvil 375 px y modo oscuro.
+  Luego pidió burbujas y letra más pequeñas y más rebote: radio base 14 % del ancho (19 % en
+  pantallas < 600 px para que quepan las etiquetas), letra 0.115·d con piso de 11 px, velocidad
+  70-170 px/s. Perillas en `initBubbles` (`base`, `MAX`, `MIN`) y en `.bubble` del CSS.
 
 - 2026-09-24: plan aprobado. Hecho el mismo día: estructura, `games.json`, hoja QR (los 11 códigos
   se decodifican con zxing-cpp desde el PNG), sitio completo y verificado en local con capturas
