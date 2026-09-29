@@ -92,6 +92,13 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
 
 ## Bitácora
 
+- 2026-09-29: kei mandó dos fotos por el chat (pantalla del carro con "222 km" marcado y la
+  tarjeta del Hotel Lapland) y pidió subirlas. Las originales de las 71 no están en la nube, así
+  que se agregaron a mano con el mismo tratamiento del script (≤ 2400 px, calidad 92, 4:4:4, sin
+  metadatos): `site/photos/66.jpg` y `67.jpg`, al final de `manifest.json` (78 → 80 entradas).
+  **Ojo:** si kei vuelve a correr `prepare_photos.py` sin copiar esas dos a `fotos_originales/`,
+  el script las borra (limpia `site/photos/` en cada corrida).
+
 - 2026-09-25 (fotos): kei soltó 81 fotos y 15 videos de WhatsApp en `fotos_originales/`.
   `prepare_photos.py` ahora deduplica (md5 exacto + hash perceptual a distancia ≤ 2): quitó 10
   repetidas → 71 fotos, 13.5 MB en `site/photos/`. Quedan 2 pares casi iguales (distancia 3-4,
