@@ -504,5 +504,11 @@
     "src": "photos/67.jpg",
     "w": 900,
     "h": 1600
+  },
+  {
+    "type": "image",
+    "src": "photos/68.jpg",
+    "w": 1280,
+    "h": 960
   }
 ]

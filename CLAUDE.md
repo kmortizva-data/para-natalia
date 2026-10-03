@@ -98,6 +98,10 @@ cd site && python -m http.server 8551   # ver local en http://localhost:8551
   metadatos): `site/photos/66.jpg` y `67.jpg`, al final de `manifest.json` (78 → 80 entradas).
   **Ojo:** si kei vuelve a correr `prepare_photos.py` sin copiar esas dos a `fotos_originales/`,
   el script las borra (limpia `site/photos/` en cada corrida).
+  2026-10-03: kei dijo que otros intentos desde el celular (sesión en la nube) habían fallado;
+  quedó la rama `claude/add-photo-mdrh3c` con una foto más (flores moradas con el Ayuntamiento de
+  Estocolmo, 1280×960, sin EXIF) numerada también como 66. Se trajo a este PR como
+  `site/photos/68.jpg` (80 → 81 entradas). Mismo aviso: copiar las tres a `fotos_originales/`.
 
 - 2026-09-25 (fotos): kei soltó 81 fotos y 15 videos de WhatsApp en `fotos_originales/`.
   `prepare_photos.py` ahora deduplica (md5 exacto + hash perceptual a distancia ≤ 2): quitó 10
